@@ -1,8 +1,10 @@
 {
   "name": "menu-show-delay-zero",
-  "title": "Zero Delay Menus",
-  "risk": "safe",
-  "description": "Removes the small wait before Windows menus open. This does not change in-game input delay.",
-  "deepDescription": "WHAT IT CHANGES\nSets the current Windows user's MenuShowDelay value to 0 ms so context menus and other Windows menus open without their usual animation delay.\n\nSCOPE\nThis affects Windows menus only. It does not change keyboard or mouse polling, game input latency, network ping, or hit registration.\n\nUNDO\nRestores the common Windows default of 400 ms.",
-  "category": ["Performance", "Appearance", "Gaming"]
+  "title": "Zero Delay Gaming Profile",
+  "risk": "caution",
+  "description": "Enables Windows Game Mode and turns off background Game Bar capture. Restores your previous settings on Undo.",
+  "deepDescription": "WHAT IT CHANGES\nEnables Windows Game Mode and disables background Game Bar capture for your Windows user. This avoids background game recording and lets Windows use its gaming mode. The profile saves the exact original registry values before changing them and restores them on Undo.\n\nWHAT IT DOES NOT DO\nThis cannot make input latency literally zero. It does not change keyboard polling rate, FiveM server tick rate, ping, or hit registration. Any benefit depends on your PC and whether background recording was active. Use the in-game FPS and ping display to compare before and after.\n\nRESTART\nRestart FiveM after applying so it starts with the changed Windows settings.\n\nUNDO\nRestores the original values, including removing any values that were absent before applying.",
+  "category": ["Performance", "Gaming"],
+  "restart": true,
+  "reversible": true
 }

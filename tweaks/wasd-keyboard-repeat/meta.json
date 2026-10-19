@@ -2,8 +2,8 @@
   "name": "wasd-keyboard-repeat",
   "title": "WASD Tweak",
   "risk": "caution",
-  "description": "Turns off Windows Filter Keys if enabled and sets fast key repeat. Can help if Windows accessibility filtering is delaying your keystrokes.",
-  "deepDescription": "WHAT IT CHANGES\nTurns off the Windows Filter Keys accessibility feature only if it is currently enabled, then sets your Windows keyboard repeat delay and speed to their fastest settings. This can help if Filter Keys was delaying or ignoring key presses.\n\nFIVEM / GAMES\nThis is a Windows input setting, not a FiveM modification. It does not create movement glitches, change hit registration, bypass game rules, or increase keyboard hardware polling rate. Most games read held movement keys directly, so faster key repeat mainly affects text fields.\n\nUNDO\nYour original Filter Keys state and keyboard repeat values are saved before the change and restored by Undo.",
+  "description": "Disables Windows Filter Keys only when active and applies fast key repeat, with a saved backup for Undo.",
+  "deepDescription": "INPUT PROFILE\nDisables the Windows Filter Keys accessibility feature only if it is currently enabled, then sets Windows keyboard repeat delay and speed to their fastest settings. Filter Keys can delay or ignore brief presses when enabled.\n\nFIVEM / GAMES\nMost games read held WASD keys directly, so Windows key-repeat settings mainly affect text fields and do not make movement faster in FiveM. This does not change keyboard polling rate, game netcode, or server hit registration. For hardware polling rate, use your keyboard manufacturer's software and a stable setting supported by your device.\n\nCHECK YOUR SETUP\nIf keys still feel delayed, check Windows Settings > Accessibility > Keyboard and your keyboard software. Compare in the same FiveM server and avoid changing several settings at once.\n\nUNDO\nYour exact original Filter Keys state and keyboard repeat values are saved before the change and restored by Undo.",
   "category": ["Gaming", "General"],
   "reversible": true
 }

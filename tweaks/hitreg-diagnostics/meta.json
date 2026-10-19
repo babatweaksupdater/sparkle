@@ -1,0 +1,15 @@
+{
+  "name": "hitreg-diagnostics",
+  "title": "Hitreg Diagnostics (FiveM)",
+  "risk": "safe",
+  "description": "Creates a local connection report and shows how to inspect FiveM ping and packet loss.",
+  "deepDescription": "LOCAL CONNECTION REPORT\nCreates a report in %LOCALAPPDATA%\\BabaTweak\\reports with your active adapter status, adapter error counters, gateway reachability, and a short ping sample to a public test endpoint. The report stays on this PC; it is not uploaded. ICMP tests can be blocked, so use them as a baseline only.\n\nCHECK ACTUAL FIVEM HITREG\nIn FiveM, open the F8 console and run: cl_drawperf true. This displays the game client's FPS, ping, and packet loss while connected to your server. A high ping, unstable packet loss, server performance, or server-side scripts can affect how play feels. Windows cannot force a server to register hits differently.\n\nCOMPARE\nRun the report before and after network changes, and compare the live FiveM display on the same server. Wired Ethernet, avoiding downloads during play, and choosing a nearby server are practical connection checks. This entry diagnoses; it does not modify Windows network settings.",
+  "category": ["Network", "Gaming"],
+  "reversible": false,
+  "links": [
+    {
+      "name": "FiveM client console commands",
+      "url": "https://docs.fivem.net/docs/client-manual/console-commands/"
+    }
+  ]
+}

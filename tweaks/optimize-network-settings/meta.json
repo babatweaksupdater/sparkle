@@ -1,10 +1,10 @@
 {
-  "title": "Network Tuning (Gaming / Hitreg)",
+  "title": "Windows TCP Tuning (Advanced)",
   "name": "optimize-network-settings",
   "risk": "caution",
   "category": ["Network", "Gaming"],
   "restart": true,
   "updatedversion": "2.9.0",
-  "description": "Adjusts Windows TCP settings. It may not improve ping or hit registration and can behave differently by network.",
-  "deepDescription": "WHAT IT CHANGES\nChanges Windows TCP heuristics, congestion control, RSS, ECN, timestamps, TCP Fast Open, and the custom initial congestion window. A restart may be needed.\n\nHIT REGISTRATION\nThere is no universal Windows setting that guarantees better hit registration. Hitreg depends on the game and server, route, packet loss, jitter, and your connection. These TCP settings do not change a game's server tick rate or netcode, and may not help every ISP or game.\n\nBEFORE APPLYING\nUse a wired connection when possible and check in-game packet loss and latency. Undo restores generic Windows TCP defaults, which may differ from any custom values you previously had."
+  "description": "Advanced TCP settings that vary by connection. Use the FiveM Hitreg Diagnostics entry to check your actual connection first.",
+  "deepDescription": "ADVANCED WINDOWS TCP PROFILE\nChanges Windows TCP heuristics, congestion control, RSS, ECN, timestamps, TCP Fast Open, and the custom initial congestion window. The effects depend on your driver, router, ISP, and Windows version. A restart may be needed.\n\nNO HITREG PROMISE\nThis does not change FiveM server tick rate, game netcode, weapon registration, or the route to a particular server. Windows TCP settings cannot guarantee better hit registration or lower ping. Compare your real in-game packet loss and latency before and after applying.\n\nUNDO\nUndo restores generic Windows TCP defaults. If you had custom TCP settings, record them first; this older profile does not preserve each previous TCP value. For a no-change connection report, use Hitreg Diagnostics (FiveM)."
 }
