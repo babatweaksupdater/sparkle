@@ -1,0 +1,9 @@
+{
+  "name": "wasd-keyboard-repeat",
+  "title": "WASD Tweak",
+  "risk": "caution",
+  "description": "Sets Windows keyboard repeat to fast for text fields. It does not reduce movement latency in most games.",
+  "deepDescription": "WHAT IT CHANGES\nSets KeyboardDelay to 0 and KeyboardSpeed to 31 for your Windows user. This makes held keys repeat faster in text fields such as Notepad.\n\nWASD IN GAMES\nMost games read held keys directly, so Windows key-repeat settings do not make WASD movement register faster. They also do not change keyboard polling rate or hardware latency.\n\nUNDO\nRestores Windows' usual keyboard repeat delay. If you had custom keyboard repeat settings before applying this tweak, note them first because Undo uses Windows defaults.",
+  "category": ["Gaming", "General"],
+  "reversible": true
+}

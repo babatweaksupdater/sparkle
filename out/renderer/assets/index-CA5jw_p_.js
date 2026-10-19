@@ -31523,7 +31523,7 @@ function Tweaks() {
         onClose: () => {
           setIsModalOpen(false);
         },
-        children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-sparkle-card border border-sparkle-border rounded-2xl p-4 shadow-xl max-w-lg w-full mx-4", children: [
+        children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-sparkle-card border border-sparkle-border p-4 shadow-xl max-w-lg h-screen w-full overflow-y-auto rounded-none", style: { position: "fixed", right: 0, top: 0, height: "100vh", width: "min(32rem, 100vw)", borderRadius: 0 }, children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-xl font-semibold text-sparkle-text mb-3", children: selectedTweak?.title }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-sparkle-text-secondary text-sm leading-6 max-h-64 overflow-y-auto custom-scrollbar mb-6 prose prose-green marker:text-sparkle-secondary", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Markdown, { remarkPlugins: [remarkGfm], children: String(modalContent) }) }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex justify-end gap-3", children: [
@@ -31711,17 +31711,23 @@ function Tweaks() {
                 {
                   variant: "secondary",
                   className: "px-2! py-1! text-xs flex items-center gap-1",
-                  title: "Open Docs",
+                  title: "View detailed tweak information",
                   onClick: (e2) => {
                     e2.preventDefault();
                     e2.stopPropagation();
-                    const url = `https://docs.getsparkle.net/tweaks/${tweak.name}`;
-                    window.open(url, "_blank");
+                    const categoryLabel = Array.isArray(tweak.category) ? tweak.category.join(", ") : tweak.category || "General";
+                    const detailParts = [
+                      tweak.deepDescription || tweak.description,
+                      `Category: ${categoryLabel}`,
+                      `Risk: ${tweak.risk || "not specified"}`,
+                      tweak.warning ? `Warning: ${tweak.warning}` : null,
+                      tweak.restart ? "A restart may be required." : null
+                    ].filter(Boolean);
+                    setSelectedTweak(tweak);
+                    setModalContent(detailParts.join("\n\n"));
+                    setIsModalOpen(true);
                   },
-                  children: [
-                    /* @__PURE__ */ jsxRuntimeExports.jsx(ExternalLink, { className: "w-3 h-3" }),
-                    " Docs"
-                  ]
+                  children: "Details"
                 }
               ),
               (() => {

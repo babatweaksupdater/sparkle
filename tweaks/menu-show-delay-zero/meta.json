@@ -1,8 +1,8 @@
 {
   "name": "menu-show-delay-zero",
-  "title": "Menu Show Delay Zero",
+  "title": "Zero Delay Menus",
   "risk": "safe",
-  "deepDescription": "Reduces the menu show delay to 0ms for faster UI response by editing the 'MenuShowDelay' registry key.",
-  "description": "Removes the delay when opening menus.",
-  "category": ["Performance", "Appearance"]
+  "description": "Removes the small wait before Windows menus open. This does not change in-game input delay.",
+  "deepDescription": "WHAT IT CHANGES\nSets the current Windows user's MenuShowDelay value to 0 ms so context menus and other Windows menus open without their usual animation delay.\n\nSCOPE\nThis affects Windows menus only. It does not change keyboard or mouse polling, game input latency, network ping, or hit registration.\n\nUNDO\nRestores the common Windows default of 400 ms.",
+  "category": ["Performance", "Appearance", "Gaming"]
 }
