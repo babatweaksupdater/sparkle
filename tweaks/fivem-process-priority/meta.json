@@ -1,0 +1,10 @@
+{
+  "name": "fivem-process-priority",
+  "title": "FiveM Process Priority",
+  "risk": "caution",
+  "description": "Temporarily sets the running FiveM game process to Above Normal priority. Apply while in FiveM; FPS improvement is not guaranteed.",
+  "deepDescription": "WINDOWS PROCESS PROFILE\nSets the currently running FiveM game process to Above Normal priority. It does not modify FiveM files, inject into the game, or change server behavior. The setting lasts only for that process; a new FiveM session starts with its normal priority.\n\nPERFORMANCE\nWindows priority can affect CPU scheduling, but it does not guarantee more FPS and may not help on your PC. Use Undo to return a running FiveM process to Normal priority.",
+  "modal": "Start FiveM before applying. This temporarily changes only the running FiveM game process to Above Normal priority. It resets when that process closes; FPS gains are not guaranteed.",
+  "category": ["Gaming", "Performance", "FiveM"],
+  "reversible": true
+}

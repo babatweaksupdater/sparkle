@@ -15855,6 +15855,7 @@ if (typeof window !== "undefined") {
 const tabIcons = {
   home: /* @__PURE__ */ jsxRuntimeExports.jsx(House, { size: 20 }),
   tweaks: /* @__PURE__ */ jsxRuntimeExports.jsx(Wrench, { size: 20 }),
+  fivem: /* @__PURE__ */ jsxRuntimeExports.jsx(Gamepad, { size: 20 }),
   wasd: /* @__PURE__ */ jsxRuntimeExports.jsx(Wrench, { size: 20 }),
   hitreg: /* @__PURE__ */ jsxRuntimeExports.jsx(Network, { size: 20 }),
   zeroDelay: /* @__PURE__ */ jsxRuntimeExports.jsx(Zap, { size: 20 }),
@@ -15869,7 +15870,8 @@ const tabIcons = {
 const tabs = {
   home: { label: "Dashboard", path: "/" },
   tweaks: { label: "Tweaks", path: "/tweaks" },
-  wasd: { label: "WASD Tweak", path: "/tweaks?search=WASD" },
+  fivem: { label: "FiveM", path: "/tweaks?category=FiveM" },
+  wasd: { label: "WASD Tweaks", path: "/tweaks?search=WASD" },
   hitreg: { label: "Hitreg", path: "/tweaks?search=Hitreg" },
   zeroDelay: { label: "Zero Delay", path: "/tweaks?search=Zero%20Delay" },
   debloat: { label: "Debloat+", path: "/debloat" },
@@ -31078,16 +31080,18 @@ function remarkGfm(options) {
 }
 function Tweaks() {
   const location2 = useLocation();
-  const requestedSearchTerm = new URLSearchParams(location2.search).get("search") || "";
+  const tweakParams = new URLSearchParams(location2.search);
+  const requestedSearchTerm = tweakParams.get("search") || "";
+  const requestedCategory = tweakParams.get("category") || "All";
   const [tweaks, setTweaks] = reactExports.useState([]);
   const [toggleStates, setToggleStates] = reactExports.useState({});
   const [isLoading, setIsLoading] = reactExports.useState(true);
   const [searchTerm, setSearchTerm] = reactExports.useState(requestedSearchTerm);
-  const [activeCategory, setActiveCategory] = reactExports.useState("All");
+  const [activeCategory, setActiveCategory] = reactExports.useState(requestedCategory);
   reactExports.useEffect(() => {
     setSearchTerm(requestedSearchTerm);
-    setActiveCategory("All");
-  }, [requestedSearchTerm]);
+    setActiveCategory(requestedCategory);
+  }, [requestedSearchTerm, requestedCategory]);
   const [modalContent, setModalContent] = reactExports.useState(null);
   const [isModalOpen, setIsModalOpen] = reactExports.useState(false);
   const [selectedTweak, setSelectedTweak] = reactExports.useState(null);
