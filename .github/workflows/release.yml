@@ -52,6 +52,11 @@ jobs:
           Copy-Item -LiteralPath $installer.FullName -Destination $uploadExe
           Copy-Item -LiteralPath $blockmap.FullName -Destination $uploadBlockmap
           Copy-Item -LiteralPath $metadata.FullName -Destination (Join-Path $uploadDir 'latest.yml')
+          gh release view $tag *> $null
+          if ($LASTEXITCODE -ne 0) {
+            gh release create $tag --title "Baba Tweak $version" --notes "Baba Tweak automatic update release $version"
+            if ($LASTEXITCODE -ne 0) { throw 'Could not create the GitHub release.' }
+          }
           gh release upload $tag $uploadExe $uploadBlockmap (Join-Path $uploadDir 'latest.yml') --clobber
           if ($LASTEXITCODE -ne 0) { throw 'Could not upload all updater assets to the GitHub release.' }
 
