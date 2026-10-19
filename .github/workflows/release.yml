@@ -1,8 +1,9 @@
 name: Build and publish Baba Tweak update
 on:
   push:
-    tags:
-      - 'v*'
+    branches:
+      - main
+  workflow_dispatch:
 permissions:
   contents: write
 jobs:
@@ -16,7 +17,9 @@ jobs:
       - name: Set version and GitHub release target
         shell: pwsh
         run: |
-          $version = "${{ github.ref_name }}" -replace '^v', ''
+          $package = Get-Content package.json | ConvertFrom-Json
+          $parts = $package.version.Split('.')
+          $version = "$($parts[0]).$($parts[1]).${{ github.run_number }}"
           npm version $version --no-git-tag-version
           node -e "const fs=require('fs');const p=require('./package.json');const [owner,repo]=process.env.GITHUB_REPOSITORY.split('/');p.build.publish[0].owner=owner;p.build.publish[0].repo=repo;fs.writeFileSync('package.json',JSON.stringify(p,null,2)+'\n')"
       - run: npm install
