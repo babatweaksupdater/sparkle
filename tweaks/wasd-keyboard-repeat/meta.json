@@ -4,6 +4,6 @@
   "risk": "caution",
   "description": "Disables Windows Filter Keys only when active and applies fast key repeat, with a saved backup for Undo.",
   "deepDescription": "INPUT PROFILE\nDisables the Windows Filter Keys accessibility feature only if it is currently enabled, then sets Windows keyboard repeat delay and speed to their fastest settings. Filter Keys can delay or ignore brief presses when enabled.\n\nFIVEM / GAMES\nMost games read held WASD keys directly, so Windows key-repeat settings mainly affect text fields and do not make movement faster in FiveM. This does not change keyboard polling rate, game netcode, or server hit registration. For hardware polling rate, use your keyboard manufacturer's software and a stable setting supported by your device.\n\nCHECK YOUR SETUP\nIf keys still feel delayed, check Windows Settings > Accessibility > Keyboard and your keyboard software. Compare in the same FiveM server and avoid changing several settings at once.\n\nUNDO\nYour exact original Filter Keys state and keyboard repeat values are saved before the change and restored by Undo.",
-  "category": ["Gaming", "General"],
+  "category": ["Gaming", "General", "FiveM"],
   "reversible": true
 }

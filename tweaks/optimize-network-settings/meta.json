@@ -2,7 +2,7 @@
   "title": "Windows TCP Tuning (Advanced)",
   "name": "optimize-network-settings",
   "risk": "caution",
-  "category": ["Network", "Gaming"],
+  "category": ["Network", "Gaming", "FiveM"],
   "restart": true,
   "updatedversion": "2.9.0",
   "description": "Advanced TCP settings that vary by connection. Use the FiveM Hitreg Diagnostics entry to check your actual connection first.",

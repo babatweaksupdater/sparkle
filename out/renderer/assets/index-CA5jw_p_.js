@@ -31452,6 +31452,7 @@ function Tweaks() {
     Network: /* @__PURE__ */ jsxRuntimeExports.jsx(Network, { className: "w-4 h-4 text-orange-500" }),
     Appearance: /* @__PURE__ */ jsxRuntimeExports.jsx(Paintbrush, { className: "w-4 h-4 text-sparkle-primary" }),
     Gaming: /* @__PURE__ */ jsxRuntimeExports.jsx(Gamepad, { className: "w-4 h-4 text-teal-500" }),
+    FiveM: /* @__PURE__ */ jsxRuntimeExports.jsx(Gamepad, { className: "w-4 h-4 text-teal-500" }),
     General: /* @__PURE__ */ jsxRuntimeExports.jsx(Wrench, { className: "w-4 h-4 text-blue-500" }),
     AI: /* @__PURE__ */ jsxRuntimeExports.jsx(Sparkles, { className: "w-4 h-4 text-purple-500" })
   };

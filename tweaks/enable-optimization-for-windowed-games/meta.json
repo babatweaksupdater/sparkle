@@ -2,7 +2,7 @@
   "title": "Enable Optimization For Windowed Games",
   "name": "enable-optimization-for-windowed-games",
   "risk": "safe",
-  "category": ["General", "Performance", "Gaming"],
+  "category": ["General", "Performance", "Gaming", "FiveM"],
   "restart": true,
   "description": "Enables Optimization For Windowed Games on windows",
   "deepDescription": "Enables Optimization For Windowed Games on Windows"

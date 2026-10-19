@@ -1,0 +1,16 @@
+{
+  "name": "fivem-cache-cleanup",
+  "title": "Clear FiveM Client Cache",
+  "risk": "caution",
+  "description": "Removes temporary FiveM cache files (keeps game storage). FiveM must be closed; cached server assets may need to download again.",
+  "deepDescription": "MAINTENANCE\nClears temporary files from the default FiveM client cache folder and preserves the game and game-storage folders. FiveM and GTA V must be closed.\n\nThis can help troubleshoot some client loading issues or reclaim cache disk space. It is not an FPS boost; FiveM may need to download cached server assets again. This does not remove account, character, or server-side data.",
+  "modal": "Close FiveM and GTA V first. This removes temporary client cache files; some server assets may download again the next time you join. Game and game-storage folders are preserved.",
+  "category": ["Gaming", "FiveM"],
+  "reversible": false,
+  "links": [
+    {
+      "name": "FiveM client support",
+      "url": "https://docs.fivem.net/docs/support/client-issues/"
+    }
+  ]
+}
