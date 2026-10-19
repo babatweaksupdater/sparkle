@@ -1,17 +1,16 @@
 # Baba Tweak — automatische Updates
 
-Dieses Repository enthält den aktuellen App-Build und baut bei jedem Git-Tag `v*` einen Windows-Installer sowie die Update-Metadaten. Benutzer erhalten die veröffentlichten Updates über `electron-updater`; sie müssen den Installer nicht für jedes Update erneut herunterladen.
+Dieses Repository enthält den aktuellen App-Build. Bei jedem Push auf `main` baut GitHub Actions automatisch einen Windows-Installer, legt einen Versions-Tag an und veröffentlicht die Update-Dateien. Benutzer erhalten veröffentlichte Updates über `electron-updater`.
 
 ## Einmalige Einrichtung
 
-1. Erstelle auf GitHub ein **öffentliches** Repository namens `baba-tweak` (oder einen anderen Namen). Öffentliche Releases sind für den in der App eingebauten Updater erreichbar.
-2. Lade diesen Projektordner in das Repository hoch.
-3. Veröffentliche Updates mit einem neuen Tag, zum Beispiel `v2.24.1`. GitHub Actions baut und veröffentlicht den Installer und Update-Dateien automatisch.
-4. Für jede Änderung, erhöhe die Version durch einen neuen Tag (`v2.24.2`, `v2.25.0` usw.). Änderungen müssen zuerst in das GitHub-Repository gepusht werden.
+1. Das GitHub-Repository muss **öffentlich** sein, damit der eingebaute Updater Releases abrufen kann.
+2. Jede Änderung, die nach `main` gepusht wird, startet den Build und Release automatisch. Der Workflow erhöht die Patch-Version und erstellt den passenden Tag.
+3. Änderungen müssen zuerst in das GitHub-Repository gepusht werden.
 
 ## Lokale Entwicklung
 
-Installiere Node.js, dann im Projektordner `npm install`. Ein lokaler Build lässt sich mit `npx electron-builder --win nsis --publish never` erzeugen. Veröffentlichungen erstellt ausschließlich der GitHub-Tag-Workflow.
+Installiere Node.js, dann im Projektordner `npm install`. Ein lokaler Build lässt sich mit `npx electron-builder --win nsis --publish never` erzeugen. Veröffentlichungen erstellt der GitHub-Workflow.
 
 ## Supabase
 
