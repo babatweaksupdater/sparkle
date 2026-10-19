@@ -32,6 +32,10 @@ Deno.serve(async request=>{
    const id=String(body.id||'');if(!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(id))return reply({error:'Ungültige Key-ID'},400,headers);
    const {data,error}=await client.rpc('baba_revoke_license_key',{p_id:id});if(error)throw error;return reply({ok:Boolean(data)},200,headers);
   }
+  if(body.action==='restore'){
+   const id=String(body.id||'');if(!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(id))return reply({error:'Ungültige Key-ID'},400,headers);
+   const {data,error}=await client.rpc('baba_restore_license_key',{p_id:id});if(error)throw error;return reply({ok:Boolean(data)},200,headers);
+  }
   return reply({error:'Unknown action'},400,headers);
  }catch(error){console.error('admin-keys failed',error);return reply({error:'Key-Verwaltung nicht verfügbar. Prüfe Migration und Edge Function Deployment.'},500,headers)}
 });

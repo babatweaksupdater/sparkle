@@ -9,9 +9,20 @@ Deno.serve(async request => {
   const supplied=request.headers.get('apikey')||'';
   if(!supplied || (!accepted.includes(supplied) && supplied!==Deno.env.get('SUPABASE_ANON_KEY'))) return reply({error:'Invalid app key'},401,headers);
   try {
-    const body=await request.json(); const key=String(body.key||'').trim().toUpperCase(); const installId=String(body.installId||'');
-    if(key.length<12||key.length>120||!/^[A-Z0-9 -]+$/.test(key)) return reply({error:'Invalid key'},400,headers);
+    const body=await request.json(); const installId=String(body.installId||'');
     if(!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(installId)) return reply({error:'Invalid installation id'},400,headers);
+    if(body.action==='status') {
+      const hash=String(body.keyHash||'').toLowerCase();
+      if(!/^[0-9a-f]{64}$/.test(hash)) return reply({error:'Invalid key hash'},400,headers);
+      const {data,error}=await adminClient().rpc('baba_check_license_key',{p_key_hash:hash,p_install_id:installId});
+      if(error) throw error;
+      const result=Array.isArray(data)?data[0]:data;
+      if(!result?.valid) return reply({valid:false,blacklisted:Boolean(result?.blacklisted)},200,headers);
+      const duration=result.plan==='Day'?86400000:result.plan==='Month'?2592000000:0;
+      return reply({valid:true,blacklisted:false,plan:result.plan,duration},200,headers);
+    }
+    const key=String(body.key||'').trim().toUpperCase();
+    if(key.length<12||key.length>120||!/^[A-Z0-9 -]+$/.test(key)) return reply({error:'Invalid key'},400,headers);
     const digest=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(key));
     const hash=Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,'0')).join('');
     const {data,error}=await adminClient().rpc('baba_claim_license',{p_key_hash:hash,p_install_id:installId});

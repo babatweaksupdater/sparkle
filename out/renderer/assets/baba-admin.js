@@ -123,7 +123,7 @@
   async function renderLicenseManager(container, accessToken) {
     const panel = document.createElement('section');
     panel.className = 'key-manager';
-    panel.innerHTML = '<div class="section-heading"><div><h3>Schlüsselverwaltung</h3><p class="muted">Erstelle Lizenz-Keys, suche Aktivierungen und widerrufe einzelne Keys.</p></div><button data-refresh-keys>Aktualisieren</button></div><div class="key-toolbar"><label>Key-Laufzeit<select aria-label="Lizenzlaufzeit" data-create-plan><option value="Day">Day</option><option value="Month">Month</option><option value="Lifetime">Lifetime</option></select></label><label>Anzahl (1–50)<input type="number" min="1" max="50" step="1" value="1" data-create-count aria-label="Anzahl Keys"></label><button class="primary" data-create>Keys generieren</button><label>Status filtern<select aria-label="Status filtern" data-status-filter><option value="all">Alle Status</option><option value="active">Aktiviert</option><option value="unused">Unbenutzt</option><option value="revoked">Widerrufen</option></select></label><label>Keys durchsuchen<input type="search" data-key-search placeholder="Plan, ID oder Land …"></label><span class="muted" data-status></span></div><div data-new-key></div><div class="rows" data-key-list></div>';
+    panel.innerHTML = '<div class="section-heading"><div><h3>Schlüsselverwaltung</h3><p class="muted">Erstelle Keys, sperre Keys oder Nutzer und hebe eine Sperre bei Bedarf wieder auf.</p></div><button data-refresh-keys>Aktualisieren</button></div><div class="key-toolbar"><label>Key-Laufzeit<select aria-label="Lizenzlaufzeit" data-create-plan><option value="Day">Day</option><option value="Month">Month</option><option value="Lifetime">Lifetime</option></select></label><label>Anzahl (1–50)<input type="number" min="1" max="50" step="1" value="1" data-create-count aria-label="Anzahl Keys"></label><button class="primary" data-create>Keys generieren</button><label>Status filtern<select aria-label="Status filtern" data-status-filter><option value="all">Alle Status</option><option value="active">Aktiviert</option><option value="unused">Unbenutzt</option><option value="revoked">Gesperrt</option></select></label><label>Keys durchsuchen<input type="search" data-key-search placeholder="Plan, ID oder Land …"></label><span class="muted" data-status></span></div><div data-new-key></div><div class="rows" data-key-list></div>';
     container.appendChild(panel);
     const status = panel.querySelector('[data-status]');
     const list = panel.querySelector('[data-key-list]');
@@ -144,13 +144,11 @@
         const row = document.createElement('div'); row.className = 'key-row';
         const info = document.createElement('div');
         const title = document.createElement('strong'); title.textContent = `${key.plan} · …${key.hint || '????'}`;
-        const badge = document.createElement('span'); badge.className = `key-status ${key.revoked ? 'revoked' : key.claimedInstallId ? 'active' : 'unused'}`; badge.textContent = key.revoked ? 'Widerrufen' : key.claimedInstallId ? 'Aktiviert' : 'Unbenutzt'; title.appendChild(badge);
+        const badge = document.createElement('span'); badge.className = `key-status ${key.revoked ? 'revoked' : key.claimedInstallId ? 'active' : 'unused'}`; badge.textContent = key.revoked ? 'Gesperrt' : key.claimedInstallId ? 'Aktiviert' : 'Unbenutzt'; title.appendChild(badge);
         const detail = document.createElement('small'); detail.textContent = key.claimedInstallId ? `Install-ID ${key.claimedInstallId} · ${key.country || 'Land unbekannt'} · ${key.claimedAt ? new Date(key.claimedAt).toLocaleString() : ''}` : 'Noch nicht aktiviert';
         info.append(title, detail); row.appendChild(info);
-        if (!key.revoked) {
-          const revoke = document.createElement('button'); revoke.textContent = 'Widerrufen';
-          revoke.addEventListener('click', async () => { revoke.disabled = true; try { await adminKeyRequest(accessToken, { action: 'revoke', id: key.id }); await refresh(); } catch (error) { status.textContent = error.message; revoke.disabled = false; } }); row.appendChild(revoke);
-        }
+        const action = document.createElement('button'); action.textContent = key.revoked ? 'Entsperren' : key.claimedInstallId ? 'Nutzer blacklisten' : 'Key deaktivieren';
+        action.addEventListener('click', async () => { const next = key.revoked ? 'restore' : 'revoke'; const prompt = key.revoked ? 'Diesen Key wieder freigeben?' : key.claimedInstallId ? `Diesen Nutzer über den Key …${key.hint || '????'} blacklisten? Beim nächsten Online-Check sieht er „You are blacklisted by Baba Tweaks.“` : `Diesen unbenutzten Key …${key.hint || '????'} deaktivieren?`; if (!window.confirm(prompt)) return; action.disabled = true; try { await adminKeyRequest(accessToken, { action: next, id: key.id }); await refresh(); } catch (error) { status.textContent = error.message; action.disabled = false; } }); row.appendChild(action);
         list.appendChild(row);
       }
       if (!visible.length) list.textContent = keys.length ? 'Keine Keys passen zu diesem Filter.' : 'Noch keine generierten Keys.';
@@ -162,7 +160,7 @@
         const active = keys.filter((key) => !key.revoked && key.claimedInstallId).length;
         const unused = keys.filter((key) => !key.revoked && !key.claimedInstallId).length;
         const revoked = keys.filter((key) => key.revoked).length;
-        status.textContent = `${keys.length} Keys · ${active} aktiviert · ${unused} unbenutzt · ${revoked} widerrufen`; renderRows();
+        status.textContent = `${keys.length} Keys · ${active} aktiviert · ${unused} unbenutzt · ${revoked} gesperrt`; renderRows();
       } catch (error) { status.textContent = error.message; list.textContent = ''; }
     };
     panel.querySelector('[data-refresh-keys]').addEventListener('click', refresh);
