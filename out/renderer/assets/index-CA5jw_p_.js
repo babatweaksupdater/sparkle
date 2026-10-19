@@ -15489,7 +15489,7 @@ function Card({ children, className, ...props }) {
     "div",
     {
       className: cn$1(
-        "bg-sparkle-card border border-sparkle-border rounded-xl hover:border-sparkle-primary transition group",
+        "bg-sparkle-card baba-design-card-border border border-sparkle-border rounded-xl hover:border-sparkle-primary transition group",
         className
       ),
       ...props,
@@ -42413,6 +42413,8 @@ function ChangelogModal({ open, onClose }) {
     ] })
   ] }) });
 }
+const savedTweakBorder = localStorage.getItem("babaBorderColor");
+if (/^#[0-9a-fA-F]{6}$/.test(savedTweakBorder || "")) document.documentElement.style.setProperty("--baba-tweak-border", savedTweakBorder);
 const themes = [
   { label: "System", value: "system" },
   { label: "Dark", value: "dark" },
@@ -42429,23 +42431,25 @@ function Settings() {
   const [designAccentColor, setDesignAccentColor] = reactExports.useState(localStorage.getItem("babaAccentColor") || "#d8d8d8");
   const [designEffectColor, setDesignEffectColor] = reactExports.useState(localStorage.getItem("babaEffectColor") || "#d8d8d8");
   const [designSurfaceColor, setDesignSurfaceColor] = reactExports.useState(localStorage.getItem("babaSurfaceColor") || "#090909");
+  const [designBorderColor, setDesignBorderColor] = reactExports.useState(localStorage.getItem("babaBorderColor") || "#303030");
   const [designMessage, setDesignMessage] = reactExports.useState("");
   const applyDesignConfig = (config) => {
     const color = (value, fallback) => /^#[0-9a-fA-F]{6}$/.test(value || "") ? value : fallback;
     const accent = color(config.accent, "#d8d8d8");
     const effectColor = color(config.effectColor, "#d8d8d8");
     const surface = color(config.surface, "#090909");
+    const border = color(config.border, "#303030");
     const effects = ["rain", "snow", "matrix", "grid", "waves", "stars", "fog", "particles", "scanlines", "pulse", "orbit", "aurora", "rings", "off"];
     const effect = effects.includes(config.effect) ? config.effect : "rain";
-    setDesignAccentColor(accent); setDesignEffectColor(effectColor); setDesignSurfaceColor(surface); setBackgroundEffect(effect);
-    localStorage.setItem("babaAccentColor", accent); localStorage.setItem("babaEffectColor", effectColor); localStorage.setItem("babaSurfaceColor", surface); localStorage.setItem("babaBackgroundEffect", effect);
+    setDesignAccentColor(accent); setDesignEffectColor(effectColor); setDesignSurfaceColor(surface); setDesignBorderColor(border); setBackgroundEffect(effect);
+    localStorage.setItem("babaAccentColor", accent); localStorage.setItem("babaEffectColor", effectColor); localStorage.setItem("babaSurfaceColor", surface); localStorage.setItem("babaBorderColor", border); localStorage.setItem("babaBackgroundEffect", effect);
     const root = document.documentElement;
     root.style.setProperty("--color-primary", accent); root.style.setProperty("--color-accent", accent); root.style.setProperty("--color-bg", surface);
-    root.style.setProperty("--baba-effect-color", effectColor);
+    root.style.setProperty("--baba-effect-color", effectColor); root.style.setProperty("--baba-tweak-border", border);
     window.dispatchEvent(new CustomEvent("baba-background-effect", { detail: effect }));
   };
   const exportDesignConfig = () => {
-    const config = { version: 1, accent: designAccentColor, effectColor: designEffectColor, surface: designSurfaceColor, effect: backgroundEffect };
+    const config = { version: 2, accent: designAccentColor, effectColor: designEffectColor, surface: designSurfaceColor, border: designBorderColor, effect: backgroundEffect };
     const url = URL.createObjectURL(new Blob([JSON.stringify(config, null, 2)], { type: "application/json" }));
     const link = document.createElement("a"); link.href = url; link.download = "baba-tweak-design.json"; link.click(); URL.revokeObjectURL(url); setDesignMessage("Config gespeichert.");
   };  const [checking, setChecking] = reactExports.useState(false);
@@ -42571,8 +42575,9 @@ function Settings() {
     /* @__PURE__ */ jsxRuntimeExports.jsx(RootDiv, { children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "min-h-screen w-full pb-16 overflow-y-auto", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-8 ", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs(SettingSection, { title: "Design & Farben", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(SettingCard, { children: jsxRuntimeExports.jsxs("div", { className: "space-y-4", children: [
-          jsxRuntimeExports.jsxs("div", { children: [jsxRuntimeExports.jsx("h3", { className: "text-base font-medium text-sparkle-text", children: "Eigenes Design" }), jsxRuntimeExports.jsx("p", { className: "text-sm text-sparkle-text-secondary", children: "Passe Akzent, Hintergrund und Effekt an. Speichere dein Design als Config." })] }),
-          jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 sm:grid-cols-3 gap-3", children: [["Akzentfarbe", designAccentColor, "accent"], ["Effektfarbe", designEffectColor, "effectColor"], ["Hintergrundfarbe", designSurfaceColor, "surface"]].map(([label, value, key]) => jsxRuntimeExports.jsxs("label", { className: "flex items-center justify-between gap-3 rounded-lg border border-sparkle-border bg-sparkle-card px-3 py-2 text-sm text-sparkle-text", children: [label, jsxRuntimeExports.jsx("input", { type: "color", value, "aria-label": label, onChange: (event) => applyDesignConfig({ accent: key === "accent" ? event.target.value : designAccentColor, effectColor: key === "effectColor" ? event.target.value : designEffectColor, surface: key === "surface" ? event.target.value : designSurfaceColor, effect: backgroundEffect }), className: "h-9 w-12 cursor-pointer rounded border-0 bg-transparent p-0" })] }, key)) }),          jsxRuntimeExports.jsxs("div", { className: "flex flex-wrap gap-2", children: [
+          jsxRuntimeExports.jsxs("div", { children: [jsxRuntimeExports.jsx("h3", { className: "text-base font-medium text-sparkle-text", children: "Eigenes Design" }), jsxRuntimeExports.jsx("p", { className: "text-sm text-sparkle-text-secondary", children: "Passe Akzent, Hintergrund, Effekt und die Tweak-Kartenränder an. Speichere alles als Config." })] }),
+          jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 sm:grid-cols-3 gap-3", children: [["Akzentfarbe", designAccentColor, "accent"], ["Effektfarbe", designEffectColor, "effectColor"], ["Hintergrundfarbe", designSurfaceColor, "surface"], ["Tweak-Rand", designBorderColor, "border"]].map(([label, value, key]) => jsxRuntimeExports.jsxs("label", { className: "flex items-center justify-between gap-3 rounded-lg border border-sparkle-border bg-sparkle-card px-3 py-2 text-sm text-sparkle-text", children: [label, jsxRuntimeExports.jsx("input", { type: "color", value, "aria-label": label, onChange: (event) => applyDesignConfig({ accent: key === "accent" ? event.target.value : designAccentColor, effectColor: key === "effectColor" ? event.target.value : designEffectColor, surface: key === "surface" ? event.target.value : designSurfaceColor, border: key === "border" ? event.target.value : designBorderColor, effect: backgroundEffect }), className: "h-9 w-12 cursor-pointer rounded border-0 bg-transparent p-0" })] }, key)) }),                    jsxRuntimeExports.jsxs("div", { className: "space-y-3", children: [jsxRuntimeExports.jsxs("div", { className: "rounded-xl border-2 bg-sparkle-card p-4", style: { borderColor: designBorderColor, boxShadow: `0 0 22px ${designBorderColor}30` }, children: [jsxRuntimeExports.jsx("p", { className: "text-sm font-medium text-sparkle-text", children: "Tweak-Rand Vorschau" }), jsxRuntimeExports.jsx("p", { className: "mt-1 text-xs text-sparkle-text-secondary", children: "So sieht die Kartenkante mit deiner Farbe aus." })] }), jsxRuntimeExports.jsxs("div", { className: "flex flex-wrap items-center gap-2", children: [jsxRuntimeExports.jsx("span", { className: "mr-1 text-xs text-sparkle-text-secondary", children: "Rand-Presets" }), ["#303030", "#e5e7eb", "#00d1ff", "#8b5cf6", "#22c55e", "#f59e0b", "#ef4444"].map((value) => jsxRuntimeExports.jsx("button", { type: "button", title: `Randfarbe ${value}`, "aria-label": `Randfarbe ${value}`, onClick: () => applyDesignConfig({ accent: designAccentColor, effectColor: designEffectColor, surface: designSurfaceColor, border: value, effect: backgroundEffect }), className: `h-7 w-7 rounded-full border-2 transition hover:scale-110 ${designBorderColor.toLowerCase() === value ? "ring-2 ring-sparkle-primary ring-offset-2 ring-offset-sparkle-bg" : ""}`, style: { backgroundColor: value, borderColor: value } }, value))] })] }),
+          jsxRuntimeExports.jsxs("div", { className: "flex flex-wrap gap-2", children: [
             jsxRuntimeExports.jsx("button", { type: "button", onClick: exportDesignConfig, className: "rounded-lg border border-sparkle-border bg-sparkle-card px-4 py-2 text-sm text-sparkle-text hover:bg-sparkle-secondary", children: "Config exportieren" }),
             jsxRuntimeExports.jsxs("label", { className: "cursor-pointer rounded-lg border border-sparkle-border bg-sparkle-card px-4 py-2 text-sm text-sparkle-text hover:bg-sparkle-secondary", children: ["Config importieren", jsxRuntimeExports.jsx("input", { type: "file", accept: ".json,application/json", className: "hidden", onChange: async (event) => { const input = event.currentTarget; const file = input.files?.[0]; if (!file) return; try { const config = JSON.parse(await file.text()); applyDesignConfig(config); setDesignMessage("Config geladen."); } catch (_) { setDesignMessage("Config konnte nicht geladen werden."); } input.value = ""; } })] })
           ] }), designMessage ? jsxRuntimeExports.jsx("p", { className: "text-xs text-sparkle-text-secondary", role: "status", children: designMessage }) : null

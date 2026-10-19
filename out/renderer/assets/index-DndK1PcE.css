@@ -47,3 +47,5 @@ body{background-image:radial-gradient(ellipse at 18% 0%,#171717 0%,transparent 3
 /* Global atmospheric rain behind the app UI */
 #root{position:relative;z-index:1;background:transparent!important}
 @media(prefers-reduced-motion:reduce){#baba-global-rain{display:none!important}}
+
+#root .baba-design-card-border{border-color:var(--baba-tweak-border,#303030)!important;transition:border-color .2s ease,box-shadow .2s ease}#root [class*="bg-sparkle-card"].baba-design-card-border:hover{border-color:var(--color-primary)!important;box-shadow:0 0 0 1px color-mix(in srgb,var(--color-primary) 32%,transparent),0 8px 26px color-mix(in srgb,var(--color-primary) 13%,transparent)}
