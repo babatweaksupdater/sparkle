@@ -7,7 +7,7 @@
   "homepage": "https://github.com/",
   "repository": "",
   "scripts": {
-    "release": "electron-builder --win nsis --publish always"
+    "release": "electron-builder --win nsis --publish never"
   },
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.2",
