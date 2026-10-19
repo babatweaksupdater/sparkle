@@ -2,8 +2,8 @@
   "name": "wasd-keyboard-repeat",
   "title": "WASD Tweak",
   "risk": "caution",
-  "description": "Sets Windows keyboard repeat to fast for text fields. It does not reduce movement latency in most games.",
-  "deepDescription": "WHAT IT CHANGES\nSets KeyboardDelay to 0 and KeyboardSpeed to 31 for your Windows user. This makes held keys repeat faster in text fields such as Notepad.\n\nWASD IN GAMES\nMost games read held keys directly, so Windows key-repeat settings do not make WASD movement register faster. They also do not change keyboard polling rate or hardware latency.\n\nUNDO\nRestores Windows' usual keyboard repeat delay. If you had custom keyboard repeat settings before applying this tweak, note them first because Undo uses Windows defaults.",
+  "description": "Turns off Windows Filter Keys if enabled and sets fast key repeat. Can help if Windows accessibility filtering is delaying your keystrokes.",
+  "deepDescription": "WHAT IT CHANGES\nTurns off the Windows Filter Keys accessibility feature only if it is currently enabled, then sets your Windows keyboard repeat delay and speed to their fastest settings. This can help if Filter Keys was delaying or ignoring key presses.\n\nFIVEM / GAMES\nThis is a Windows input setting, not a FiveM modification. It does not create movement glitches, change hit registration, bypass game rules, or increase keyboard hardware polling rate. Most games read held movement keys directly, so faster key repeat mainly affects text fields.\n\nUNDO\nYour original Filter Keys state and keyboard repeat values are saved before the change and restored by Undo.",
   "category": ["Gaming", "General"],
   "reversible": true
 }
