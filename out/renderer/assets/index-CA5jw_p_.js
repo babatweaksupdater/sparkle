@@ -15855,6 +15855,9 @@ if (typeof window !== "undefined") {
 const tabIcons = {
   home: /* @__PURE__ */ jsxRuntimeExports.jsx(House, { size: 20 }),
   tweaks: /* @__PURE__ */ jsxRuntimeExports.jsx(Wrench, { size: 20 }),
+  wasd: /* @__PURE__ */ jsxRuntimeExports.jsx(Wrench, { size: 20 }),
+  hitreg: /* @__PURE__ */ jsxRuntimeExports.jsx(Network, { size: 20 }),
+  zeroDelay: /* @__PURE__ */ jsxRuntimeExports.jsx(Zap, { size: 20 }),
   debloat: /* @__PURE__ */ jsxRuntimeExports.jsx(Bubbles, { size: 20 }),
   clean: /* @__PURE__ */ jsxRuntimeExports.jsx(Icon, { iconNode: broom, size: 20 }),
   backup: /* @__PURE__ */ jsxRuntimeExports.jsx(Folder, { size: 20 }),
@@ -15866,6 +15869,9 @@ const tabIcons = {
 const tabs = {
   home: { label: "Dashboard", path: "/" },
   tweaks: { label: "Tweaks", path: "/tweaks" },
+  wasd: { label: "WASD Tweak", path: "/tweaks?search=WASD" },
+  hitreg: { label: "Hitreg", path: "/tweaks?search=Hitreg" },
+  zeroDelay: { label: "Zero Delay", path: "/tweaks?search=Zero%20Delay" },
   debloat: { label: "Debloat+", path: "/debloat" },
   utilities: { label: "Utilities", path: "/utilities" },
   clean: { label: "Cleaner", path: "/clean" },
@@ -15902,7 +15908,8 @@ function Nav({ collapsed }) {
   const getActiveTab = () => {
     const path2 = location2.pathname;
     if (path2 === "/") return "home";
-    const match = Object.entries(tabs).find(([, { path: p2 }]) => p2 === path2);
+    const currentPath = path2 + location2.search;
+    const match = Object.entries(tabs).find(([, { path: p2 }]) => p2 === currentPath || p2 === path2 && !location2.search);
     return match ? match[0] : "";
   };
   const activeTab = getActiveTab();
@@ -31070,11 +31077,17 @@ function remarkGfm(options) {
   toMarkdownExtensions.push(gfmToMarkdown(settings));
 }
 function Tweaks() {
+  const location2 = useLocation();
+  const requestedSearchTerm = new URLSearchParams(location2.search).get("search") || "";
   const [tweaks, setTweaks] = reactExports.useState([]);
   const [toggleStates, setToggleStates] = reactExports.useState({});
   const [isLoading, setIsLoading] = reactExports.useState(true);
-  const [searchTerm, setSearchTerm] = reactExports.useState("");
+  const [searchTerm, setSearchTerm] = reactExports.useState(requestedSearchTerm);
   const [activeCategory, setActiveCategory] = reactExports.useState("All");
+  reactExports.useEffect(() => {
+    setSearchTerm(requestedSearchTerm);
+    setActiveCategory("All");
+  }, [requestedSearchTerm]);
   const [modalContent, setModalContent] = reactExports.useState(null);
   const [isModalOpen, setIsModalOpen] = reactExports.useState(false);
   const [selectedTweak, setSelectedTweak] = reactExports.useState(null);
@@ -43667,7 +43680,7 @@ function Debloat() {
   const [loading, setLoading] = reactExports.useState(true);
   const [uninstalling, setUninstalling] = reactExports.useState(false);
   const [showConfirm, setShowConfirm] = reactExports.useState(false);
-  const [searchTerm, setSearchTerm] = reactExports.useState("");
+  const [searchTerm, setSearchTerm] = reactExports.useState(requestedSearchTerm);
   const [showWelcome, setShowWelcome] = reactExports.useState(false);
   const loadApps = reactExports.useCallback(async function() {
     setLoading(true);
