@@ -1,0 +1,9 @@
+node_modules/
+release/
+dist/
+*.log
+.env
+.env.*
+!.env.example
+supabase/.temp/
+supabase/.branches/

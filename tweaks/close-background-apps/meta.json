@@ -1,0 +1,14 @@
+{
+  "name": "close-background-apps",
+  "title": "Close Background Apps",
+  "risk": "caution",
+  "deepDescription": "Closes an explicit allowlist of third-party launchers and optional Windows apps such as Widgets, Phone Link, Xbox Game Bar, Microsoft Teams, and Clipchamp. Windows services and core processes, browsers, running games, Discord, Steam, and Spotify are excluded.",
+  "description": "Closes selected optional apps after showing their names for confirmation. Save work first; force closing an app may lose unsaved changes.",
+  "warning": "Only the apps listed in the confirmation dialog will be closed. Windows services and core processes, browsers, running games, Discord, Steam, and Spotify are excluded. The action cannot be undone.",
+  "category": [
+    "Performance",
+    "Gaming"
+  ],
+  "recommended": false,
+  "reversible": false
+}

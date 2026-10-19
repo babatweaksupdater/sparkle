@@ -1,0 +1,13 @@
+project_id = "okzkqhzjrxjjgrjxsjqg"
+
+[functions.track-install]
+verify_jwt = false
+
+[functions.admin-stats]
+verify_jwt = true
+
+[functions.validate-license]
+verify_jwt = false
+
+[functions.admin-keys]
+verify_jwt = true

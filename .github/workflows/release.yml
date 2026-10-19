@@ -1,0 +1,27 @@
+name: Build and publish Baba Tweak update
+on:
+  push:
+    tags:
+      - 'v*'
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Set version and GitHub release target
+        shell: pwsh
+        run: |
+          $version = "${{ github.ref_name }}" -replace '^v', ''
+          npm version $version --no-git-tag-version
+          node -e "const fs=require('fs');const p=require('./package.json');const [owner,repo]=process.env.GITHUB_REPOSITORY.split('/');p.build.publish[0].owner=owner;p.build.publish[0].repo=repo;fs.writeFileSync('package.json',JSON.stringify(p,null,2)+'\n')"
+      - run: npm install
+      - name: Build Windows installer and updater files
+        run: npm run release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
